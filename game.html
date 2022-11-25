@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Puissance 4 - Jeu</title>
     <link rel="stylesheet" href="assets/css/game.css">
+    <script src="assets/scripts/game.js" defer></script>
 </head>
 <body>
 <main>
@@ -17,7 +18,8 @@
         <div id="line-2">
             <div>
                 Grille
-                <span class="board-size">6</span> <span class="board-size">7</span>
+                <span class="board-size" id="y"></span>
+                <span class="board-size" id="x"></span>
             </div>
             <div id="time">25:06</div>
             <div>
@@ -27,16 +29,5 @@
         </div>
     </div>
 </main>
-
-<script>
-    const board = document.querySelector('.board');
-
-    for (let i = 0; i < 7 * 6; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell', 'empty');
-        cell.insertAdjacentElement('afterbegin', document.createElement('div'));
-        board.insertAdjacentElement('afterbegin', cell);
-    }
-</script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Présentation</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+    <div class="title">
+        <h1>Puissance 4</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="presentation.html">Présentation</a></li>
+            <li><a href="gamesRules.html">Règle du jeu</a></li>
+            <li><a href="game.html">Jeu</a></li>
+        </ul>
+    </nav>
+</header>
+<form>
+    <input class="column" type="text">
+    <input class="rows" type="text">
+    <button type="submit" class="submit">Jouer !</button>
+</form>
+<script>
+    document.querySelector("form").addEventListener("submit", event => {
+        event.preventDefault()
+        let columns = document.querySelector(".column").value
+        let rows = document.querySelector(".rows").value
+        document.cookie = "columns=" + columns + "; path=/";
+        document.cookie = "rows=" + rows + "; path=/";
+        location.href = "game.html"
+    })
+
+</script>
+</body>
+</html>
