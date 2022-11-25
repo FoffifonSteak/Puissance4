@@ -1,0 +1,108 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+}
+
+.score {
+    background-color: #282B2E;
+    padding: 10px;
+    color: white;
+    width: 43.15rem;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.score .board-size {
+    background-color: white;
+    color: black;
+    padding: 6px 12px;
+}
+
+.score .board-size {
+    margin-left: 10px;
+}
+
+.score #line-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score #line-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.score #score, .score #time {
+    font-size: 25px;
+}
+
+.score .board-action-button {
+    background-color: #626767;
+    border: 1px solid #282B2E;
+    color: white;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.who-is-playing {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+.board {
+    background-color: #2054A5;
+    margin: 0 auto;
+    padding: 5px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    left: 50%;
+    top: 50%;
+    width: max-content;
+    height: max-content;
+    /*position: absolute;*/
+    /*transform: translate(-50%, -50%);*/
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.board .cell > div {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+
+    -webkit-box-shadow: inset 0 0 8px 2px rgba(255, 255, 255, 0.76);
+    -moz-box-shadow: inset 0 0 8px 2px rgba(255, 255, 255, 0.76);
+    box-shadow: inset 0 0 8px 2px rgba(255, 255, 255, 0.76);
+}
+
+.board .cell {
+    margin: 10px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px 2px #000000;
+    -webkit-box-shadow: 0 0 10px 2px #000000;
+    -moz-box-shadow: 0 0 10px 2px #000000;
+    cursor: pointer;
+}
+
+.empty {
+    background-color: white !important;
+}
+
+.yellow {
+    background-color: #FAAA2C !important;
+}
+
+.red {
+    background-color: #EE2D2D !important;
+}

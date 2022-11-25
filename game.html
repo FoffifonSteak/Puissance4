@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Puissance 4 - Jeu</title>
+    <link rel="stylesheet" href="assets/css/game.css">
+</head>
+<body>
+<main>
+    <div class="board"></div>
+    <div class="score">
+        <div id="line-1">
+            <div class="who-is-playing yellow"></div>
+            <div id="score">1:0</div>
+            <div></div>
+        </div>
+        <div id="line-2">
+            <div>
+                Grille
+                <span class="board-size">6</span> <span class="board-size">7</span>
+            </div>
+            <div id="time">25:06</div>
+            <div>
+                <button class="board-action-button">Reset</button>
+                <button class="board-action-button">New</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const board = document.querySelector('.board');
+
+    for (let i = 0; i < 7 * 6; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell', 'empty');
+        cell.insertAdjacentElement('afterbegin', document.createElement('div'));
+        board.insertAdjacentElement('afterbegin', cell);
+    }
+</script>
+</body>
+</html>
