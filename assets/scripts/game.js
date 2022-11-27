@@ -27,16 +27,38 @@ for (let i = 0; i < columns; i++) {
                 set(j, i, 'yellow');
                 light.classList.toggle('red');
                 light.classList.toggle('yellow');
+                console.log(check());
                 player = false;
             } else {
                 set(j, i, 'red');
                 light.classList.toggle('red');
                 light.classList.toggle('yellow');
+                console.log(check());
                 player = true;
             }
         })
     }
     table.push(row);
+}
+
+function check() {
+    for (let i = 0; i < columns; i++) {
+        for (let j = 0; j < rows; j++) {
+            if (table[i][j].classList.contains('empty')) {
+                continue;
+            }
+            const color = table[i][j].classList[1];
+            // check horizontal
+            if (j + 3 < rows && color === table[i][j + 1].classList[1] && color === table[i][j + 2].classList[1] && color === table[i][j + 3].classList[1]) {
+                return true;
+            }
+            // check vertical
+            if (i + 3 < columns && color === table[i + 1][j].classList[1] && color === table[i + 2][j].classList[1] && color === table[i + 3][j].classList[1]) {
+                return true;
+            }
+        }
+
+    }
 }
 
 function set(x, y, color) {
