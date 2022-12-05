@@ -1,0 +1,1 @@
+const BASE_URL = "https://power4-api.matteochretien.com";

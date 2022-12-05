@@ -143,13 +143,13 @@ function checkVictory() {
 }
 
 if (!getCookie("hostId")) {
-    fetch('https://power4-api.tolnkee.com/generateUserId', {method: 'GET'}).then(resp => resp.text()).then(id => {
+    fetch(BASE_URL + '/generateUserId', {method: 'GET'}).then(resp => resp.text()).then(id => {
         document.cookie = `hostId=${id}; path=/`;
     })
 }
 
 const sendScore = () => {
-    fetch('https://power4-api.tolnkee.com/score', {
+    fetch(BASE_URL + '/score', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
