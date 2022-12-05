@@ -83,6 +83,9 @@ function checkVictory() {
         resetTable();
         alert(`Le joueur ${color} a gagné la manche !`);
         if (scores[color] >= scores.max) {
+            if (scores["yellow"] > scores["red"]) {
+                updateScore();
+            }
             alert(`Le joueur ${color} a gagné la partie !`);
             sendScore();
             document.querySelector(`#yellow-score`).textContent = 0;
@@ -142,12 +145,6 @@ function checkVictory() {
     }
 }
 
-if (!getCookie("hostId")) {
-    fetch(BASE_URL + '/generateUserId', {method: 'GET'}).then(resp => resp.text()).then(id => {
-        document.cookie = `hostId=${id}; path=/`;
-    })
-}
-
 const sendScore = () => {
     fetch(BASE_URL + '/score', {
         method: 'POST',
@@ -168,11 +165,3 @@ const sendScore = () => {
     })
 }
 
-function getCookie(name) {
-    let cookie = {};
-    document.cookie.split(';').forEach(function (el) {
-        let [k, v] = el.split('=');
-        cookie[k.trim()] = v;
-    })
-    return cookie[name];
-}
