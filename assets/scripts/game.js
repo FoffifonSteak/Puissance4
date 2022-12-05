@@ -41,8 +41,8 @@ for (let i = 0; i < rows; i++) {
             const oldPlayerTurn = playerTurn;
             playerTurn = play(cell.dataset.column, playerTurn);
             if (playerTurn !== oldPlayerTurn) {
-                light.classList.toggle('yellow');
-                light.classList.toggle('red');
+                light.classList.toggle('yellow-bg');
+                light.classList.toggle('red-bg');
             }
             // Timeout to wait that the animation is finished
             setTimeout(checkVictory, 100);
@@ -56,38 +56,54 @@ function set(x, y, color) {
     table[y][x].classList.add(color);
 }
 
+function setError(error) {
+    const element = document.querySelector("#line-2");
+    element.textContent = error;
+    element.classList.toggle("error");
+}
+
+function setAnnounce(message) {
+    const element = document.querySelector("#line-2");
+    element.innerHTML = message;
+    element.classList.toggle("announce");
+}
+
+function clearErrorOrAnnounce() {
+    const element = document.querySelector("#line-2");
+    element.textContent = "";
+    element.classList.remove("error");
+    element.classList.remove("announce");
+}
+
 function play(x, color) {
+    clearErrorOrAnnounce();
     for (let y = (rows - 1); y >= 0; y--) {
         if (table[y][x].classList.contains('empty')) {
-            set(x, y, color);
+            set(x, y, color + "-bg");
             color = color === "yellow" ? "red" : "yellow";
             return color;
         }
     }
 
-    alert("La colonne est pleine");
+    setError("La colonne est pleine");
     return color;
 }
 
 // This function check if there is a winner (4 same color in a row)
 function checkVictory() {
     const resetTable = () => table.forEach(row => row.forEach(cell => {
-        cell.classList.remove('red');
-        cell.classList.remove('yellow');
+        cell.classList.remove('red-bg');
+        cell.classList.remove('yellow-bg');
         cell.classList.add('empty');
     }));
 
-    const win = color => {
+    const win = async color => {
         scores[color]++;
         document.querySelector(`#${color}-score`).textContent = scores[color];
         resetTable();
-        alert(`Le joueur ${color} a gagné la manche !`);
         if (scores[color] >= scores.max) {
-            if (scores["yellow"] > scores["red"]) {
-                updateScore();
-            }
-            alert(`Le joueur ${color} a gagné la partie !`);
-            sendScore();
+            setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la partie !`);
+            document.getElementById("points").innerText = "Tu as " + (await sendScore()) + " points";
             document.querySelector(`#yellow-score`).textContent = 0;
             document.querySelector(`#red-score`).textContent = 0;
             scores = {
@@ -95,16 +111,18 @@ function checkVictory() {
                 red: 0,
                 max: scores.max
             }
+        } else {
+            setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la manche !`);
         }
     }
 
     // Check horizontal
     for (let y = 0; y < columns - 1; y++) {
         for (let x = 0; x < 4; x++) {
-            if (table[y][x].classList.contains('yellow') && table[y][x + 1].classList.contains('yellow') && table[y][x + 2].classList.contains('yellow') && table[y][x + 3].classList.contains('yellow')) {
+            if (table[y][x].classList.contains('yellow-bg') && table[y][x + 1].classList.contains('yellow-bg') && table[y][x + 2].classList.contains('yellow-bg') && table[y][x + 3].classList.contains('yellow-bg')) {
                 win('yellow');
             }
-            if (table[y][x].classList.contains('red') && table[y][x + 1].classList.contains('red') && table[y][x + 2].classList.contains('red') && table[y][x + 3].classList.contains('red')) {
+            if (table[y][x].classList.contains('red-bg') && table[y][x + 1].classList.contains('red-bg') && table[y][x + 2].classList.contains('red-bg') && table[y][x + 3].classList.contains('red-bg')) {
                 win('red');
             }
         }
@@ -112,10 +130,10 @@ function checkVictory() {
     // Check vertical
     for (let y = 0; y < 3; y++) {
         for (let x = 0; x < columns; x++) {
-            if (table[y][x].classList.contains('yellow') && table[y + 1][x].classList.contains('yellow') && table[y + 2][x].classList.contains('yellow') && table[y + 3][x].classList.contains('yellow')) {
+            if (table[y][x].classList.contains('yellow-bg') && table[y + 1][x].classList.contains('yellow-bg') && table[y + 2][x].classList.contains('yellow-bg') && table[y + 3][x].classList.contains('yellow-bg')) {
                 win('yellow');
             }
-            if (table[y][x].classList.contains('red') && table[y + 1][x].classList.contains('red') && table[y + 2][x].classList.contains('red') && table[y + 3][x].classList.contains('red')) {
+            if (table[y][x].classList.contains('red-bg') && table[y + 1][x].classList.contains('red-bg') && table[y + 2][x].classList.contains('red-bg') && table[y + 3][x].classList.contains('red-bg')) {
                 win('red');
             }
         }
@@ -123,10 +141,10 @@ function checkVictory() {
     // Check diagonal
     for (let y = 0; y < 3; y++) {
         for (let x = 0; x < 4; x++) {
-            if (table[y][x].classList.contains('yellow') && table[y + 1][x + 1].classList.contains('yellow') && table[y + 2][x + 2].classList.contains('yellow') && table[y + 3][x + 3].classList.contains('yellow')) {
+            if (table[y][x].classList.contains('yellow-bg') && table[y + 1][x + 1].classList.contains('yellow-bg') && table[y + 2][x + 2].classList.contains('yellow-bg') && table[y + 3][x + 3].classList.contains('yellow-bg')) {
                 win('yellow');
             }
-            if (table[y][x].classList.contains('red') && table[y + 1][x + 1].classList.contains('red') && table[y + 2][x + 2].classList.contains('red') && table[y + 3][x + 3].classList.contains('red')) {
+            if (table[y][x].classList.contains('red-bg') && table[y + 1][x + 1].classList.contains('red-bg') && table[y + 2][x + 2].classList.contains('red-bg') && table[y + 3][x + 3].classList.contains('red-bg')) {
                 win('red');
             }
         }
@@ -135,18 +153,18 @@ function checkVictory() {
     // Check diagonal
     for (let y = 0; y < 3; y++) {
         for (let x = 3; x < columns; x++) {
-            if (table[y][x].classList.contains('yellow') && table[y + 1][x - 1].classList.contains('yellow') && table[y + 2][x - 2].classList.contains('yellow') && table[y + 3][x - 3].classList.contains('yellow')) {
+            if (table[y][x].classList.contains('yellow-bg') && table[y + 1][x - 1].classList.contains('yellow-bg') && table[y + 2][x - 2].classList.contains('yellow-bg') && table[y + 3][x - 3].classList.contains('yellow-bg')) {
                 win('yellow');
             }
-            if (table[y][x].classList.contains('red') && table[y + 1][x - 1].classList.contains('red') && table[y + 2][x - 2].classList.contains('red') && table[y + 3][x - 3].classList.contains('red')) {
+            if (table[y][x].classList.contains('red-bg') && table[y + 1][x - 1].classList.contains('red-bg') && table[y + 2][x - 2].classList.contains('red-bg') && table[y + 3][x - 3].classList.contains('red-bg')) {
                 win('red');
             }
         }
     }
 }
 
-const sendScore = () => {
-    fetch(BASE_URL + '/score', {
+const sendScore = async () => {
+    return await fetch(BASE_URL + '/score', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -162,6 +180,7 @@ const sendScore = () => {
         if (resp.status !== 200) {
             console.error("Error while sending score", await resp.text());
         }
+        return resp.text();
     })
 }
 

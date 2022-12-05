@@ -31,6 +31,22 @@ main {
 }
 
 .score #line-2 {
+    text-align: center;
+    font-size: 25px;
+    padding: 10px 0;
+}
+
+.score #line-2.error {
+    background-color: red;
+    font-size: 14px;
+}
+
+.score #line-2.announce {
+    background-color: green;
+    font-size: 14px;
+}
+
+.score #line-3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,9 +116,17 @@ main {
 }
 
 .yellow {
-    background-color: #FAAA2C !important;
+    color: #FAAA2C !important;
 }
 
 .red {
+    color: #EE2D2D !important;
+}
+
+.yellow-bg {
+    background-color: #FAAA2C !important;
+}
+
+.red-bg {
     background-color: #EE2D2D !important;
 }
