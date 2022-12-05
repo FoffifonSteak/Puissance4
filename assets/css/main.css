@@ -7,7 +7,6 @@ body {
     font-size: 1.5em;
     color: red;
     text-align: center;
-    text-shadow: 0 0 0.2em #000000;
 }
 .title h1 {
     margin: 0;
@@ -23,7 +22,6 @@ li {
     list-style-type: none;
     font-size: 1.2em;
     color: #000000;
-    text-shadow: 0 0 0.2em #000000;
 }
 li a{
     font-size: 1.2em;
