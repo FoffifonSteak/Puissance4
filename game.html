@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <title>Puissance 4 - Jeu</title>
     <link rel="stylesheet" href="assets/css/game.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="assets/scripts/game.js" defer></script>
 </head>
 <body>
+<header>
+    <div class="title">
+        <h1>Puissance 4</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="presentation.html">Présentation</a></li>
+            <li><a href="gamesRules.html">Règle du jeu</a></li>
+            <li><a href="game.html">Jeu</a></li>
+        </ul>
+    </nav>
+</header>
+
 <main>
     <div class="board"></div>
     <div class="score">
         <div id="line-1">
             <div class="who-is-playing yellow"></div>
-            <div id="score">1:0</div>
+            <div id="score"><span id="yellow-score">0</span>:<span id="red-score">0</span></div>
             <div></div>
         </div>
         <div id="line-2">
@@ -28,117 +43,5 @@
     </div>
 </main>
 
-<script>
-    const board = document.querySelector('.board');
-
-    const table = [];
-    let playerTurn = "yellow";
-    let columns = getCookie('columns');
-    let rows = getCookie('rows');
-    let light = document.querySelector('.who-is-playing');
-    document.querySelector("#y").textContent = columns;
-    document.querySelector("#x").textContent = rows;
-    document.querySelector(".board").style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-    document.querySelector(".board").style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-
-    for (let i = 0; i < 6; i++) {
-        const row = [];
-        for (let j = 0; j < 7; j++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell', 'empty');
-            cell.dataset.row = i;
-            cell.dataset.column = j;
-            row.push(cell);
-            cell.appendChild(document.createElement('div'));
-            board.appendChild(cell);
-            cell.addEventListener("click", () => {
-                const oldPlayerTurn = playerTurn;
-                playerTurn = play(cell.dataset.column, playerTurn);
-                if (playerTurn !== oldPlayerTurn) {
-                    light.classList.toggle('yellow');
-                    light.classList.toggle('red');
-                }
-                checkVictory()
-            })
-        }
-        table.push(row);
-    }
-
-    function set(x, y, color) {
-        table[y][x].classList.remove('empty');
-        table[y][x].classList.add(color);
-    }
-
-    function play(x, color) {
-        for (let y = 5; y >= 0; y--) {
-            if (table[y][x].classList.contains('empty')) {
-                set(x, y, color);
-                color = color === "yellow" ? "red" : "yellow";
-                return color;
-            }
-        }
-
-        alert("La colonne est pleine");
-        return color;
-    }
-
-    // This function check if there is a winner (4 same color in a row)
-    function checkVictory() {
-        // Check horizontal
-        for (let y = 0; y < 6; y++) {
-            for (let x = 0; x < 4; x++) {
-                if (table[y][x].classList.contains('yellow') && table[y][x + 1].classList.contains('yellow') && table[y][x + 2].classList.contains('yellow') && table[y][x + 3].classList.contains('yellow')) {
-                    alert("Yellow win");
-                }
-                if (table[y][x].classList.contains('red') && table[y][x + 1].classList.contains('red') && table[y][x + 2].classList.contains('red') && table[y][x + 3].classList.contains('red')) {
-                    alert("Red win");
-                }
-            }
-        }
-        // Check vertical
-        for (let y = 0; y < 3; y++) {
-            for (let x = 0; x < 7; x++) {
-                if (table[y][x].classList.contains('yellow') && table[y + 1][x].classList.contains('yellow') && table[y + 2][x].classList.contains('yellow') && table[y + 3][x].classList.contains('yellow')) {
-                    alert("Yellow win");
-                }
-                if (table[y][x].classList.contains('red') && table[y + 1][x].classList.contains('red') && table[y + 2][x].classList.contains('red') && table[y + 3][x].classList.contains('red')) {
-                    alert("Red win");
-                }
-            }
-        }
-        // Check diagonal
-        for (let y = 0; y < 3; y++) {
-            for (let x = 0; x < 4; x++) {
-                if (table[y][x].classList.contains('yellow') && table[y + 1][x + 1].classList.contains('yellow') && table[y + 2][x + 2].classList.contains('yellow') && table[y + 3][x + 3].classList.contains('yellow')) {
-                    alert("Yellow win");
-                }
-                if (table[y][x].classList.contains('red') && table[y + 1][x + 1].classList.contains('red') && table[y + 2][x + 2].classList.contains('red') && table[y + 3][x + 3].classList.contains('red')) {
-                    alert("Red win");
-                }
-            }
-        }
-
-        // Check diagonal
-        for (let y = 0; y < 3; y++) {
-            for (let x = 3; x < 7; x++) {
-                if (table[y][x].classList.contains('yellow') && table[y + 1][x - 1].classList.contains('yellow') && table[y + 2][x - 2].classList.contains('yellow') && table[y + 3][x - 3].classList.contains('yellow')) {
-                    alert("Yellow win");
-                }
-                if (table[y][x].classList.contains('red') && table[y + 1][x - 1].classList.contains('red') && table[y + 2][x - 2].classList.contains('red') && table[y + 3][x - 3].classList.contains('red')) {
-                    alert("Red win");
-                }
-            }
-        }
-    }
-
-    function getCookie(name) {
-        let cookie = {};
-        document.cookie.split(';').forEach(function (el) {
-            let [k, v] = el.split('=');
-            cookie[k.trim()] = v;
-        })
-        return cookie[name];
-    }
-</script>
 </body>
 </html>
