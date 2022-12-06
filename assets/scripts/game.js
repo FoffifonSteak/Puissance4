@@ -38,7 +38,8 @@ document.getElementById("new-button").addEventListener("click", () => {
     document.querySelector("#time").textContent = "00:00";
     startTime = Date.now();
     playerTurn = Math.random() < 0.5 ? "yellow" : "red";
-    light.classList.add(playerTurn + "-bg");
+    light.classList.toggle('yellow-bg');
+    light.classList.toggle('red-bg');
     resetTable();
 })
 
@@ -54,7 +55,8 @@ document.getElementById("reset-button").addEventListener("click", () => {
     document.querySelector("#time").textContent = "00:00";
     startTime = Date.now();
     playerTurn = Math.random() < 0.5 ? "yellow" : "red";
-    light.classList.add(playerTurn + "-bg");
+    light.classList.toggle('yellow-bg');
+    light.classList.toggle('red-bg');
     resetTable();
 })
 
