@@ -7,18 +7,19 @@ let scores = {
     red: 0,
     max: 3
 }
-let playerTurn = "yellow";
+let playerTurn = Math.random() < 0.5 ? "yellow" : "red";
 let columns = Number(getCookie('columns'));
 let rows = Number(getCookie('rows'));
 let light = document.querySelector('.who-is-playing');
+light.classList.add(playerTurn + "-bg");
 document.querySelector("#y").textContent = columns;
 document.querySelector("#x").textContent = rows;
 document.querySelector(".board").style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
 document.querySelector(".board").style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
 let startTime = Date.now();
 updateTime();
 setInterval(updateTime, 1000);
-
 
 document.getElementById("new-button").addEventListener("click", () => {
     clearErrorOrAnnounce();
@@ -27,6 +28,7 @@ document.getElementById("new-button").addEventListener("click", () => {
         return;
     }
     sendScore(boards);
+    document.getElementById("new-button").classList.toggle("hidden"); // Hide the button
     document.querySelector(`#yellow-score`).textContent = 0;
     document.querySelector(`#red-score`).textContent = 0;
     scores = {
@@ -36,6 +38,8 @@ document.getElementById("new-button").addEventListener("click", () => {
     }
     document.querySelector("#time").textContent = "00:00";
     startTime = Date.now();
+    playerTurn = Math.random() < 0.5 ? "yellow" : "red";
+    light.classList.add(playerTurn + "-bg");
     resetTable();
 })
 
@@ -50,6 +54,8 @@ document.getElementById("reset-button").addEventListener("click", () => {
     }
     document.querySelector("#time").textContent = "00:00";
     startTime = Date.now();
+    playerTurn = Math.random() < 0.5 ? "yellow" : "red";
+    light.classList.add(playerTurn + "-bg");
     resetTable();
 })
 
@@ -72,14 +78,14 @@ for (let i = 0; i < rows; i++) {
         cell.appendChild(document.createElement('div'));
         board.appendChild(cell);
         cell.addEventListener("click", () => {
+            if (!document.getElementById("new-button").classList.contains("hidden")) return;
             const oldPlayerTurn = playerTurn;
             playerTurn = play(cell.dataset.column, playerTurn);
             if (playerTurn !== oldPlayerTurn) {
                 light.classList.toggle('yellow-bg');
                 light.classList.toggle('red-bg');
             }
-            // Timeout to wait that the animation is finished
-            setTimeout(checkVictory, 100);
+            checkVictory();
         })
     }
     table.push(row);
@@ -148,6 +154,7 @@ function checkVictory() {
             playerRed: scores.red
         })
         if (scores[color] >= scores.max) {
+            document.getElementById("new-button").classList.toggle("hidden"); // Show the new button
             setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la partie !`);
         } else {
             resetTable();
@@ -168,8 +175,23 @@ function checkVictory() {
 
     if (isGameEqual()) {
         setAnnounce("Match nul !");
+        scores.yellow++;
+        scores.red++;
+        document.querySelector(`#yellow-score`).textContent = scores.yellow;
+        document.querySelector(`#red-score`).textContent = scores.red;
         resetTable();
-        return;
+        if (scores.yellow >= scores.max || scores.red >= scores.max) {
+            document.getElementById("new-button").classList.toggle("hidden"); // Show the new button
+            sendScore(boards);
+            clearErrorOrAnnounce();
+            if (scores.yellow > scores.red) {
+                setAnnounce(`Le joueur <span class="yellow">yellow</span> a gagné la partie !`);
+            } else if (scores.yellow < scores.red) {
+                setAnnounce(`Le joueur <span class="red">red</span> a gagné la partie !`);
+            } else {
+                setAnnounce(`Match nul, la partie est finie !`);
+            }
+        }
     }
 
     // Check horizontal
