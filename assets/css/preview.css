@@ -3,14 +3,17 @@
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .date-picker div {
     flex-basis: 33.333333%;
-    padding: 2px 5px;
+    padding: 3px 7px;
+    font-size: 20px;
     margin: 5px;
     background-color: var(--yellow-color);
-    border-radius: 10px;
+    border-radius: 6px;
     text-align: center;
     cursor: pointer;
 }
