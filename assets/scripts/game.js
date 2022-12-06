@@ -181,7 +181,6 @@ function checkVictory() {
         scores.red++;
         document.querySelector(`#yellow-score`).textContent = scores.yellow;
         document.querySelector(`#red-score`).textContent = scores.red;
-        resetTable();
 
         let time = Date.now() - startTime;
         let seconds = Math.floor((time / 1000) % 60);
@@ -193,6 +192,7 @@ function checkVictory() {
             playerYellow: scores.yellow,
             playerRed: scores.red
         })
+        resetTable();
         if (scores.yellow >= scores.max || scores.red >= scores.max) {
             document.getElementById("new-button").classList.toggle("hidden"); // Show the new button
             sendScore(boards);
