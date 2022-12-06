@@ -93,8 +93,8 @@ main {
 
 .board .cell > div {
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
 
     -webkit-box-shadow: inset 0 0 8px 2px rgba(255, 255, 255, 0.76);
     -moz-box-shadow: inset 0 0 8px 2px rgba(255, 255, 255, 0.76);
@@ -102,7 +102,7 @@ main {
 }
 
 .board .cell {
-    margin: 10px;
+    margin: 15px;
     border-radius: 50%;
     background-color: #ffffff;
     box-shadow: 0 0 10px 2px #000000;
