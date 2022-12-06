@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Présentation</title>
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/presentation.css">
 </head>
 <body>
 <header>
@@ -19,15 +20,20 @@
     </nav>
 </header>
 <form>
-    <input class="column" type="text">
-    <input class="rows" type="text">
+    <input placeholder="Nombre de colonnes" class="column" type="text">
+    <input placeholder="Nombre de lignes" class="rows" type="text">
     <button type="submit" class="submit">Jouer !</button>
 </form>
+
 <script>
     document.querySelector("form").addEventListener("submit", event => {
         event.preventDefault()
         let columns = document.querySelector(".column").value
         let rows = document.querySelector(".rows").value
+        if (columns < 4 || rows < 4) {
+            alert("Le nombre de colonnes et de lignes doit être supérieur à 4");
+            return;
+        }
         document.cookie = "columns=" + columns + "; path=/";
         document.cookie = "rows=" + rows + "; path=/";
         location.href = "game.html"
