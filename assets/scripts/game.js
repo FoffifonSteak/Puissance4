@@ -20,6 +20,39 @@ updateTime();
 setInterval(updateTime, 1000);
 
 
+document.getElementById("new-button").addEventListener("click", () => {
+    clearErrorOrAnnounce();
+    if (!(scores.yellow === scores.max || scores.red === scores.max)) {
+        setError("La partie n'est pas terminée");
+        return;
+    }
+    sendScore(boards);
+    document.querySelector(`#yellow-score`).textContent = 0;
+    document.querySelector(`#red-score`).textContent = 0;
+    scores = {
+        yellow: 0,
+        red: 0,
+        max: scores.max
+    }
+    document.querySelector("#time").textContent = "00:00";
+    startTime = Date.now();
+    resetTable();
+})
+
+document.getElementById("reset-button").addEventListener("click", () => {
+    clearErrorOrAnnounce();
+    document.querySelector(`#yellow-score`).textContent = 0;
+    document.querySelector(`#red-score`).textContent = 0;
+    scores = {
+        yellow: 0,
+        red: 0,
+        max: scores.max
+    }
+    document.querySelector("#time").textContent = "00:00";
+    startTime = Date.now();
+    resetTable();
+})
+
 // The time must be minutes:seconds
 function updateTime() {
     let time = Date.now() - startTime;
@@ -90,14 +123,16 @@ function play(x, color) {
     return color;
 }
 
-// This function check if there is a winner (4 same color in a row)
-function checkVictory() {
-    const resetTable = () => table.forEach(row => row.forEach(cell => {
+function resetTable() {
+    table.forEach(row => row.forEach(cell => {
         cell.classList.remove('red-bg');
         cell.classList.remove('yellow-bg');
         cell.classList.add('empty');
     }));
+}
 
+// This function check if there is a winner (4 same color in a row)
+function checkVictory() {
     const win = async color => {
         scores[color]++;
         document.querySelector(`#${color}-score`).textContent = scores[color];
@@ -112,20 +147,29 @@ function checkVictory() {
             playerYellow: scores.yellow,
             playerRed: scores.red
         })
-        resetTable();
         if (scores[color] >= scores.max) {
             setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la partie !`);
-            sendScore(boards);
-            document.querySelector(`#yellow-score`).textContent = 0;
-            document.querySelector(`#red-score`).textContent = 0;
-            scores = {
-                yellow: 0,
-                red: 0,
-                max: scores.max
-            }
         } else {
+            resetTable();
             setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la manche !`);
         }
+    }
+
+    const isGameEqual = () => {
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < columns; x++) {
+                if (table[y][x].classList.contains('empty')) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    if (isGameEqual()) {
+        setAnnounce("Match nul !");
+        resetTable();
+        return;
     }
 
     // Check horizontal
