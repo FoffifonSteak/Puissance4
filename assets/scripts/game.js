@@ -129,47 +129,93 @@ function checkVictory() {
     }
 
     // Check horizontal
-    for (let y = 0; y < columns - 1; y++) {
-        for (let x = 0; x < 4; x++) {
-            if (table[y][x].classList.contains('yellow-bg') && table[y][x + 1].classList.contains('yellow-bg') && table[y][x + 2].classList.contains('yellow-bg') && table[y][x + 3].classList.contains('yellow-bg')) {
-                win('yellow');
-            }
-            if (table[y][x].classList.contains('red-bg') && table[y][x + 1].classList.contains('red-bg') && table[y][x + 2].classList.contains('red-bg') && table[y][x + 3].classList.contains('red-bg')) {
-                win('red');
-            }
-        }
-    }
-    // Check vertical
-    for (let y = 0; y < 3; y++) {
+    for (let y = 0; y < rows; y++) {
+        let count = 0;
+        let color = null;
         for (let x = 0; x < columns; x++) {
-            if (table[y][x].classList.contains('yellow-bg') && table[y + 1][x].classList.contains('yellow-bg') && table[y + 2][x].classList.contains('yellow-bg') && table[y + 3][x].classList.contains('yellow-bg')) {
-                win('yellow');
-            }
-            if (table[y][x].classList.contains('red-bg') && table[y + 1][x].classList.contains('red-bg') && table[y + 2][x].classList.contains('red-bg') && table[y + 3][x].classList.contains('red-bg')) {
-                win('red');
+            if (table[y][x].classList.contains('empty')) {
+                count = 0;
+                color = null;
+            } else if (table[y][x].classList.contains(color)) {
+                count++;
+                if (count >= 4) {
+                    win(color.replace("-bg", ""));
+                    return;
+                }
+            } else {
+                count = 1;
+                color = table[y][x].classList[1];
             }
         }
     }
-    // Check diagonal
-    for (let y = 0; y < 3; y++) {
-        for (let x = 0; x < 4; x++) {
-            if (table[y][x].classList.contains('yellow-bg') && table[y + 1][x + 1].classList.contains('yellow-bg') && table[y + 2][x + 2].classList.contains('yellow-bg') && table[y + 3][x + 3].classList.contains('yellow-bg')) {
-                win('yellow');
-            }
-            if (table[y][x].classList.contains('red-bg') && table[y + 1][x + 1].classList.contains('red-bg') && table[y + 2][x + 2].classList.contains('red-bg') && table[y + 3][x + 3].classList.contains('red-bg')) {
-                win('red');
+
+    // Check vertical
+    for (let x = 0; x < columns; x++) {
+        let count = 0;
+        let color = null;
+        for (let y = 0; y < rows; y++) {
+            if (table[y][x].classList.contains('empty')) {
+                count = 0;
+                color = null;
+            } else if (table[y][x].classList.contains(color)) {
+                count++;
+                if (count >= 4) {
+                    win(color.replace("-bg", ""));
+                    return;
+                }
+            } else {
+                count = 1;
+                color = table[y][x].classList[1];
             }
         }
     }
 
     // Check diagonal
-    for (let y = 0; y < 3; y++) {
-        for (let x = 3; x < columns; x++) {
-            if (table[y][x].classList.contains('yellow-bg') && table[y + 1][x - 1].classList.contains('yellow-bg') && table[y + 2][x - 2].classList.contains('yellow-bg') && table[y + 3][x - 3].classList.contains('yellow-bg')) {
-                win('yellow');
+    for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < columns; x++) {
+            let count = 0;
+            let color = null;
+            for (let i = 0; i < 4; i++) {
+                if (y + i < rows && x + i < columns) {
+                    if (table[y + i][x + i].classList.contains('empty')) {
+                        count = 0;
+                        color = null;
+                    } else if (table[y + i][x + i].classList.contains(color)) {
+                        count++;
+                        if (count >= 4) {
+                            win(color.replace("-bg", ""));
+                            return;
+                        }
+                    } else {
+                        count = 1;
+                        color = table[y + i][x + i].classList[1];
+                    }
+                }
             }
-            if (table[y][x].classList.contains('red-bg') && table[y + 1][x - 1].classList.contains('red-bg') && table[y + 2][x - 2].classList.contains('red-bg') && table[y + 3][x - 3].classList.contains('red-bg')) {
-                win('red');
+        }
+    }
+
+    // Check anti-diagonal
+    for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < columns; x++) {
+            let count = 0;
+            let color = null;
+            for (let i = 0; i < 4; i++) {
+                if (y + i < rows && x - i >= 0) {
+                    if (table[y + i][x - i].classList.contains('empty')) {
+                        count = 0;
+                        color = null;
+                    } else if (table[y + i][x - i].classList.contains(color)) {
+                        count++;
+                        if (count >= 4) {
+                            win(color.replace("-bg", ""));
+                            return;
+                        }
+                    } else {
+                        count = 1;
+                        color = table[y + i][x - i].classList[1];
+                    }
+                }
             }
         }
     }
