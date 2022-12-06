@@ -1,15 +1,18 @@
-.title2{
+.title2 {
     text-align: center;
 }
+
 .nbgames {
     text-align: center;
     font-size: 1.8em;
     margin-bottom: 30px;
 }
+
 .main-block {
     width: 80%;
     margin: 0 auto;
 }
+
 .block {
     display: flex;
     flex-direction: row;
@@ -22,6 +25,7 @@
     font-size: 1.7em;
     margin-bottom: 30px;
 }
+
 .left {
     display: flex;
     flex-direction: row;
@@ -30,18 +34,26 @@
     align-items: center;
     align-content: center;
 }
+
 .winner-color {
     width: 30px;
     height: 30px;
     outline: black solid 3px;
     margin-right: 10px;
 }
+
 .winner-color.yellow {
     background-color: var(--yellow-color);
 }
+
 .winner-color.red {
     background-color: var(--red-color);
 }
+
+.winner-color.equality {
+    background-color: #12b886;
+}
+
 .middle a {
     text-decoration: none;
     color: black;
