@@ -116,17 +116,17 @@ main {
 }
 
 .yellow {
-    color: #FAAA2C !important;
+    color: var(--yellow-color) !important;
 }
 
 .red {
-    color: #EE2D2D !important;
+    color: var(--red-color) !important;
 }
 
 .yellow-bg {
-    background-color: #FAAA2C !important;
+    background-color: var(--yellow-color) !important;
 }
 
 .red-bg {
-    background-color: #EE2D2D !important;
+    background-color: var(--red-color) !important;
 }

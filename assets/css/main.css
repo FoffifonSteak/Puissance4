@@ -1,34 +1,46 @@
+:root {
+    --yellow-color: #fab005;
+    --red-color: #fa5252;
+}
+
 body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
 
 }
-.title  {
-/*    cartoon style of title*/
+
+.title {
+    /*    cartoon style of title*/
     font-size: 1.5em;
     color: red;
     text-align: center;
 }
+
 .title h1 {
     margin: 0;
 }
+
 header {
     text-align: center;
 }
+
 ul li {
     display: inline;
     align-items: center;
 }
+
 li {
     list-style-type: none;
     font-size: 1.2em;
     color: #000000;
 }
-li a{
+
+li a {
     font-size: 1.2em;
     color: #000000;
     text-decoration: none;
     padding-right: 30px;
 }
+
 #points {
     font-size: 30px;
     color: #000000;
