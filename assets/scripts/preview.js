@@ -50,8 +50,13 @@ fetch(BASE_URL + '/score?gameId=' + new URLSearchParams(location.search).get("ga
         console.error("Error while fetching score", await resp.text());
         return;
     }
-    const json = (await resp.json())[0];
-    json.boards.forEach((b, i) => {
+    const body = await resp.json();
+    if (!body.length) {
+        console.error("No boards found");
+        return;
+    }
+    const game = body[0];
+    game.boards.forEach((b, i) => {
         let divElement = document.createElement("div");
         divElement.textContent = `${b.playerYellow} vs ${b.playerRed}`;
         divElement.addEventListener("click", () => {
@@ -64,12 +69,12 @@ fetch(BASE_URL + '/score?gameId=' + new URLSearchParams(location.search).get("ga
             }
 
             updateBoard();
-            updateStats(json, i);
+            updateStats(game, i);
         })
         document.querySelector(".date-picker").appendChild(divElement)
     })
 
-    updateStats(json, 0);
+    updateStats(game, 0);
     updateBoard();
 }).catch(err => {
     console.error("Error while fetching scores", err);
