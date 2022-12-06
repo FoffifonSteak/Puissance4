@@ -27,7 +27,6 @@ document.getElementById("new-button").addEventListener("click", () => {
         setError("La partie n'est pas terminée");
         return;
     }
-    sendScore(boards);
     document.getElementById("new-button").classList.toggle("hidden"); // Hide the button
     document.querySelector(`#yellow-score`).textContent = 0;
     document.querySelector(`#red-score`).textContent = 0;
@@ -155,6 +154,7 @@ function checkVictory() {
         })
         if (scores[color] >= scores.max) {
             document.getElementById("new-button").classList.toggle("hidden"); // Show the new button
+            sendScore(boards);
             setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la partie !`);
         } else {
             resetTable();
