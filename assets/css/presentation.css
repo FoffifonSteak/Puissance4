@@ -1,0 +1,29 @@
+/*style of form of this page*/
+form {
+    text-align: center;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+input {
+    width: 500px;
+    font-size: 2em;
+    padding: 14px 20px;
+    margin-top: 15px;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    background: #f1f1f1;
+}
+button {
+    background-color: #12b886;
+    font-size: 2em;
+    color: white;
+    padding: 14px 20px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    width: 300px;
+}
