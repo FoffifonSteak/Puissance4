@@ -11,6 +11,6 @@ function getCookie(name) {
 
 if (!getCookie("hostId")) {
     fetch(BASE_URL + '/generateUserId', {method: 'GET'}).then(resp => resp.text()).then(id => {
-        document.cookie = `hostId=${id}; path=/`;
+        document.cookie = `hostId=${id}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     })
 }

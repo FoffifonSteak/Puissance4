@@ -1,3 +1,51 @@
 .title2{
     text-align: center;
 }
+.nbgames {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+}
+.main-block {
+    width: 80%;
+    margin: 0 auto;
+}
+.block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    outline: black solid 4px;
+    padding: 20px;
+    font-size: 1.7em;
+    margin-bottom: 30px;
+}
+.left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+}
+.winner-color {
+    width: 30px;
+    height: 30px;
+    outline: black solid 3px;
+    margin-right: 10px;
+}
+.winner-color.yellow {
+    background-color: var(--yellow-color);
+}
+.winner-color.red {
+    background-color: var(--red-color);
+}
+.middle a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    outline: black solid 3px;
+    background-color: #12b886;
+}
