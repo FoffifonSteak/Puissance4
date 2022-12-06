@@ -14,13 +14,3 @@ if (!getCookie("hostId")) {
         document.cookie = `hostId=${id}; path=/`;
     })
 }
-
-function updateScore() {
-    fetch(BASE_URL + "/points?hostId=" + getCookie("hostId"), {method: "GET"})
-        .then((resp) => resp.text())
-        .then((points) => {
-            document.getElementById("points").innerText = "Tu as " + points + " points";
-        })
-}
-
-updateScore();
