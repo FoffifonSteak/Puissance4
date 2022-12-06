@@ -182,6 +182,17 @@ function checkVictory() {
         document.querySelector(`#yellow-score`).textContent = scores.yellow;
         document.querySelector(`#red-score`).textContent = scores.red;
         resetTable();
+
+        let time = Date.now() - startTime;
+        let seconds = Math.floor((time / 1000) % 60);
+        let minutes = Math.floor((time / (1000 * 60)) % 60);
+
+        boards.push({
+            board: table.map(row => row.map(cell => cell.classList.contains("yellow-bg") ? 1 : (cell.classList.contains("red-bg") ? 2 : 0))),
+            date: `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
+            playerYellow: scores.yellow,
+            playerRed: scores.red
+        })
         if (scores.yellow >= scores.max || scores.red >= scores.max) {
             document.getElementById("new-button").classList.toggle("hidden"); // Show the new button
             sendScore(boards);
