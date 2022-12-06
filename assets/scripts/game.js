@@ -1,6 +1,7 @@
 const board = document.querySelector('.board');
 
 const table = [];
+const boards = [];
 let scores = {
     yellow: 0,
     red: 0,
@@ -100,10 +101,21 @@ function checkVictory() {
     const win = async color => {
         scores[color]++;
         document.querySelector(`#${color}-score`).textContent = scores[color];
+
+        let time = Date.now() - startTime;
+        let seconds = Math.floor((time / 1000) % 60);
+        let minutes = Math.floor((time / (1000 * 60)) % 60);
+
+        boards.push({
+            board: table.map(row => row.map(cell => cell.classList.contains("yellow-bg") ? 1 : (cell.classList.contains("red-bg") ? 2 : 0))),
+            date: `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
+            playerYellow: scores.yellow,
+            playerRed: scores.red
+        })
         resetTable();
         if (scores[color] >= scores.max) {
             setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la partie !`);
-            document.getElementById("points").innerText = "Tu as " + (await sendScore()) + " points";
+            sendScore(boards);
             document.querySelector(`#yellow-score`).textContent = 0;
             document.querySelector(`#red-score`).textContent = 0;
             scores = {
@@ -163,8 +175,8 @@ function checkVictory() {
     }
 }
 
-const sendScore = async () => {
-    return await fetch(BASE_URL + '/score', {
+const sendScore = boards => {
+    return fetch(BASE_URL + '/score', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -174,13 +186,13 @@ const sendScore = async () => {
             playerYellow: scores.yellow,
             boardSizeX: columns,
             boardSizeY: rows,
-            hostId: getCookie("hostId")
+            hostId: getCookie("hostId"),
+            boards
         }),
     }).then(async resp => {
-        if (resp.status !== 200) {
+        if (resp.status < 200 || resp.status >= 300) {
             console.error("Error while sending score", await resp.text());
         }
-        return resp.text();
     })
 }
 

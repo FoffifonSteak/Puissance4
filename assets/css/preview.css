@@ -1,0 +1,16 @@
+.date-picker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.date-picker div {
+    flex-basis: 33.333333%;
+    padding: 2px 5px;
+    margin: 5px;
+    background-color: #FAAA2C;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
