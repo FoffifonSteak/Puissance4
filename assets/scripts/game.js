@@ -157,10 +157,10 @@ function checkVictory() {
         if (scores[color] >= scores.max) {
             document.getElementById("new-button").classList.toggle("hidden"); // Show the new button
             sendScore(boards);
-            setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la partie !`);
+            setAnnounce(`Le joueur <span class="${color}">${color === "red" ? "rouge" : "jaune"}</span> a gagné la partie !`);
         } else {
             resetTable();
-            setAnnounce(`Le joueur <span class="${color}">${color}</span> a gagné la manche !`);
+            setAnnounce(`Le joueur <span class="${color}">${color === "red" ? "rouge" : "jaune"}</span> a gagné la manche !`);
         }
     }
 
