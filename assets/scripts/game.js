@@ -19,7 +19,7 @@ document.querySelector(".board").style.gridTemplateRows = `repeat(${rows}, 1fr)`
 
 let startTime = Date.now();
 updateTime();
-setInterval(updateTime, 1000);
+const intervalId = setInterval(updateTime, 1000);
 
 document.getElementById("new-button").addEventListener("click", () => {
     clearErrorOrAnnounce();
@@ -158,6 +158,7 @@ function checkVictory() {
             document.getElementById("new-button").classList.toggle("hidden"); // Show the new button
             sendScore(boards);
             setAnnounce(`Le joueur <span class="${color}">${color === "red" ? "rouge" : "jaune"}</span> a gagné la partie !`);
+            clearInterval(intervalId);
         } else {
             resetTable();
             setAnnounce(`Le joueur <span class="${color}">${color === "red" ? "rouge" : "jaune"}</span> a gagné la manche !`);
