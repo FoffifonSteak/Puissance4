@@ -20,6 +20,7 @@
     </nav>
 </header>
 <form>
+    <div id="alert"></div>
     <input placeholder="Nombre de colonnes" class="column" type="text">
     <input placeholder="Nombre de lignes" class="rows" type="text">
     <button type="submit" class="submit">Jouer !</button>
@@ -31,7 +32,7 @@
         let columns = document.querySelector(".column").value
         let rows = document.querySelector(".rows").value
         if (columns < 4 || rows < 4) {
-            alert("Le nombre de colonnes et de lignes doit être supérieur à 4");
+            document.getElementById("alert").textContent = "Le nombre de colonnes et de lignes doit être supérieur à 4";
             return;
         }
         document.cookie = "columns=" + columns + "; path=/";

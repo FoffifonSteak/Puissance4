@@ -31,3 +31,9 @@ button {
 input {
     outline: none;
 }
+
+#alert {
+    color: red;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
