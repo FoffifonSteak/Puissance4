@@ -39,17 +39,17 @@ class Game {
 
     init() {
         this.light.classList.add(this.playerTurn + "-bg");
-        document.querySelector("#y").textContent = columns;
-        document.querySelector("#x").textContent = rows;
-        document.querySelector(".board").style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-        document.querySelector(".board").style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+        document.querySelector("#y").textContent = this.columns;
+        document.querySelector("#x").textContent = this.rows;
+        document.querySelector(".board").style.gridTemplateColumns = `repeat(${this.columns}, 1fr)`;
+        document.querySelector(".board").style.gridTemplateRows = `repeat(${this.rows}, 1fr)`;
         this.startTime = Date.now();
         this.updateTime();
         this.runTimeLoop();
 
-        for (let i = 0; i < rows; i++) {
+        for (let i = 0; i < this.rows; i++) {
             const row = [];
-            for (let j = 0; j < columns; j++) {
+            for (let j = 0; j < this.columns; j++) {
                 const cell = new Cell(i, j);
                 row.push(cell);
                 this.board.appendChild(cell.element);
@@ -153,7 +153,7 @@ class Game {
 
     play(cell, color) {
         this.clearErrorOrAnnounce();
-        for (let y = (rows - 1); y >= 0; y--) {
+        for (let y = (this.rows - 1); y >= 0; y--) {
             if (this.table[y][cell.j].element.classList.contains('empty')) {
                 this.set(cell.j, y, color + "-bg");
                 color = color === "yellow" ? "red" : "yellow";
@@ -228,11 +228,11 @@ class Game {
                 this.sendScore();
                 this.clearErrorOrAnnounce();
                 if (this.scores.yellow > this.scores.red) {
-                    setAnnounce(`Le joueur <span class="yellow">jaune</span> a gagné la partie !`);
+                    this.setAnnounce(`Le joueur <span class="yellow">jaune</span> a gagné la partie !`);
                 } else if (this.scores.yellow < this.scores.red) {
-                    setAnnounce(`Le joueur <span class="red">rouge</span> a gagné la partie !`);
+                    this.setAnnounce(`Le joueur <span class="red">rouge</span> a gagné la partie !`);
                 } else {
-                    setAnnounce(`Match nul, la partie est finie !`);
+                    this.setAnnounce(`Match nul, la partie est finie !`);
                 }
             }
         }
@@ -353,8 +353,11 @@ class Game {
 
 
 }
-
-let rows = Number(getCookie('rows'));
-let columns = Number(getCookie('columns'));
-const game = new Game(rows, columns);
-game.init();
+const rowsString = getCookie('rows');
+const columnsString = getCookie('columns');
+if (rowsString || columnsString) {
+    const game = new Game(Number(rowsString), Number(columnsString));
+    game.init();
+} else {
+    document.location.href = "presentation.html";
+}
