@@ -9,7 +9,3 @@ La partie frontend (construite en HTML/CSS/JS) de ce jeu peut être trouvée à 
 
 L'API REST est construite en utilisant [Golang](https://golang.org/) et est hébergée à [https://power4-api.matteochretien.com](https://power4-api.matteochretien.com).
 Et le code peut être trouvé sur [https://github.com/Niromash/power4-api](https://github.com/Niromash/power4-api)
-
-## License
-
-Ce projet est sous licence MIT - consultez le fichier [LICENSE](LICENSE) pour plus de détails.
